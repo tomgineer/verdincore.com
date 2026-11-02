@@ -1,36 +1,59 @@
 # VerdinCore documentation
 
-This documentation describes the current VerdinCore platform and its direction. It is written for developers, technical decision-makers, content teams, and anyone evaluating the system.
+This documentation describes VerdinCore `4.0.1`. It is organized for evaluators, editors, operators, and developers who need different levels of detail.
 
-## Start here
+The application is proprietary and its source is maintained in a private repository. Installation and development guides assume authorized access to that source.
 
-| Document | What it covers |
+## Choose a reading path
+
+### Evaluate the platform
+
+1. [Platform overview](product/overview.md)
+2. [Feature map](product/features.md)
+3. [Roadmap](product/roadmap.md)
+
+### Learn the editorial system
+
+1. [Editorial workflow](guides/editorial-workflow.md)
+2. [Reusable blocks](guides/reusable-blocks.md)
+3. [Media](guides/media.md)
+4. [Administration and roles](guides/administration-and-roles.md)
+
+### Run a deployment
+
+1. [Requirements and installation](operations/installation.md)
+2. [Configuration](operations/configuration.md)
+3. [Deployment](operations/deployment.md)
+4. [Scheduled jobs](operations/scheduled-jobs.md)
+5. [Security and privacy](operations/security-and-privacy.md)
+6. [Backups and recovery](operations/backups-and-recovery.md)
+
+### Understand or extend the codebase
+
+1. [System architecture](architecture/system.md)
+2. [Content model](architecture/content-model.md)
+3. [Database reference](reference/database.md)
+4. [Route reference](reference/routes.md)
+5. [Codebase guide](development/codebase.md)
+6. [Front-end build](development/frontend.md)
+7. [Testing](development/testing.md)
+
+## Documentation map
+
+| Folder | Contents |
 | --- | --- |
-| [Platform overview](overview.md) | Purpose, principles, audiences, and the public/private repository boundary |
-| [Features](features.md) | Publishing, administration, media, discovery, analytics, and automation capabilities |
-| [Architecture](architecture.md) | System boundaries, application layers, request flow, multi-brand design, and technology choices |
-| [Content model](content-model.md) | Pages, posts, taxonomy, blocks, media, and their relationships |
-| [Security and operations](security-and-operations.md) | Authentication, input handling, caching, tracking, recurring jobs, and operational behavior |
-| [Roadmap](roadmap.md) | Current priorities and longer-term product direction |
+| [`product/`](product/overview.md) | Product purpose, current features, and roadmap |
+| [`architecture/`](architecture/system.md) | Application layers, request flow, storage, and content relationships |
+| [`guides/`](guides/editorial-workflow.md) | Day-to-day publishing, blocks, media, brands, themes, and administration |
+| [`operations/`](operations/installation.md) | Installation, settings, deployment, maintenance, security, and recovery |
+| [`development/`](development/codebase.md) | Project layout, service boundaries, asset builds, and tests |
+| [`reference/`](reference/routes.md) | Routes and database tables |
 
-## Repository scope
+## Scope and conventions
 
-This public repository contains product and architecture documentation plus assets used to present VerdinCore. The CMS implementation is developed in a private repository.
+- **Current** means the behavior exists in application version `4.0.1`.
+- **Configurable** means an operator can enable, disable, or tune it for a deployment.
+- **Planned** means it is a direction, not an available feature or delivery commitment.
+- Example values are placeholders. Production credentials and deployment-specific paths are intentionally omitted.
 
-The documentation intentionally explains system behavior without publishing credentials, environment values, deployment-specific paths, private infrastructure details, or proprietary source code.
-
-## Documentation conventions
-
-- **Current** means the capability exists in the private core.
-- **Configurable** means a deployment can enable, disable, or tune the capability.
-- **Planned** means the capability belongs to the roadmap and should not be treated as available.
-- Technology versions describe the current development baseline and can change as the platform evolves.
-
-## Suggested reading paths
-
-**Evaluating the platform:** [Overview](overview.md), [Features](features.md), then [Roadmap](roadmap.md).
-
-**Understanding the implementation:** [Architecture](architecture.md), [Content model](content-model.md), then [Security and operations](security-and-operations.md).
-
-**Contributing to these docs:** Start with the root [README](../README.md), keep statements aligned with the current private core, and clearly label future work.
-
+The private application remains the source of truth. Documentation changes should be checked against routes, configuration classes, models, services, schema, and tests before publication.

@@ -1,96 +1,74 @@
 # VerdinCore
 
-**A modular, multi-brand content platform built for focused publishing and long-term evolution.**
+VerdinCore is a private, multi-brand content management platform built with CodeIgniter 4. It brings publishing, reusable content blocks, media processing, authentication, analytics, search visibility, and routine maintenance into one application.
 
-[Visit verdincore.com](https://verdincore.com) | [Explore the documentation](docs/README.md) | [View the roadmap](docs/roadmap.md)
+[Website](https://verdincore.com) | [Documentation](docs/README.md) | [Roadmap](docs/product/roadmap.md)
 
 ![VerdinCore website](docs/images/website.webp)
 
 ## About this repository
 
-This is the public repository for the VerdinCore website and product documentation. It explains the platform, its architecture, its content model, and the ideas that guide its development.
+This public repository contains the VerdinCore product and technical documentation. The application source is maintained separately and is not distributed here.
 
-The production CMS source code is maintained in a separate private repository. This repository is therefore a product and architecture reference, not an installable VerdinCore distribution.
+The documentation is based on VerdinCore `4.0.1`. It covers the current application, including installation and operations guidance for authorized users who have access to the private source.
 
-## What is VerdinCore?
+## What VerdinCore does
 
-VerdinCore is a private PHP content platform for running distinct websites from a shared application foundation. Each site can define its own identity, domain, assets, social presence, structured data, feature set, and theme while retaining the same tested publishing core.
+VerdinCore runs distinct websites from a shared application core. A deployment selects a brand, a public theme, and a set of site features. The publishing rules, administration tools, data model, security controls, and maintenance services remain common.
 
-It combines a structured CMS, reusable content blocks, media processing, discoverability tools, first-party analytics, and operational automation in one compact system.
+Current capabilities include:
 
-## Why VerdinCore
+- posts and hierarchical pages with four publication states, a review flag, and a trash workflow;
+- public and member-only content;
+- topic groups, topics, archives, search, related posts, and configurable featured content;
+- reusable blocks composed from text, rich text, links, and images;
+- managed image uploads, AVIF variants, social images, and orphan cleanup;
+- CodeIgniter Shield authentication, email-code activation, and permission-based administration;
+- per-deployment brand identity, social links, Schema.org data, and theme selection;
+- RSS, canonical metadata, XML sitemaps, `robots.txt` management, and structured data;
+- first-party visitor statistics and post view counts;
+- production page caching and a coordinated daily maintenance workflow.
 
-- **One foundation, distinct brands.** Share platform capabilities without flattening every website into the same identity.
-- **Structured where it matters.** Pages, posts, topics, topic groups, media, and reusable blocks have explicit models and relationships.
-- **A focused publishing workflow.** Draft, schedule, publish, archive, restore, and permanently remove content from a purpose-built admin area.
-- **Discoverability by default.** Canonical metadata, social previews, Schema.org data, RSS, sitemaps, and robots directives are part of the platform.
-- **Operational work is automated.** Scheduled publishing, analytics summaries, media cleanup, sitemap generation, session cleanup, and optional GitHub synchronization run as managed jobs.
-- **Private by design.** The core remains controlled while its architecture and direction are documented in public.
+## Technology baseline
 
-## Key capabilities
-
-| Area | Capabilities |
-| --- | --- |
-| Content | Hierarchical pages, posts, excerpts, featured content, topics, topic groups, related content, and archives |
-| Editing | Rich text editing, embeds, image insertion, slug generation, validation, sanitization, and transactional saves |
-| Blocks | Reusable block groups with text, rich text, link, and image elements |
-| Media | Validated uploads, generated image variants, responsive delivery, and orphan cleanup |
-| Multi-brand | Per-brand identity, contact details, domain, locale, social links, assets, and structured identity |
-| Delivery | Server-rendered pages, optional production page caching, RSS, XML sitemaps, and compressed sitemaps |
-| Administration | Protected dashboard, content filtering, trash and restore workflows, user management, analytics, logs, cron history, and system information |
-| Operations | Scheduled publishing, privacy-conscious visitor statistics, bot filtering, maintenance jobs, and test coverage for core services |
-
-## Architecture at a glance
-
-```mermaid
-flowchart LR
-    V[Visitor] --> H[HTTP and routing]
-    E[Editor] --> A[Protected admin]
-    H --> C[Controllers and filters]
-    A --> S[Application services]
-    C --> S
-    S --> M[Domain models]
-    M --> D[(MariaDB)]
-    S --> R[Server-rendered views]
-    B[Brand and theme config] --> C
-    B --> R
-    J[Scheduled jobs] --> S
-    R --> V
-```
-
-VerdinCore follows a layered CodeIgniter 4 architecture. HTTP controllers stay close to request handling, application services hold business rules, models manage persistence, and themes own presentation. Brand configuration and feature flags adapt the shared core for each deployment.
-
-Read the [architecture guide](docs/architecture.md) for the full system view.
-
-## Technology
-
-| Layer | Technology |
+| Area | Current baseline |
 | --- | --- |
 | Runtime | PHP 8.5 |
 | Framework | CodeIgniter 4.7 |
-| Authentication | CodeIgniter Shield |
-| Database | MariaDB |
-| UI | Server-rendered PHP views, Tailwind CSS 4, daisyUI 5 |
-| Editing | Tiptap 3 |
-| Assets | esbuild and Tailwind CSS CLI |
+| Authentication | CodeIgniter Shield 1.4 |
+| Database | MariaDB or compatible MySQL, InnoDB, `utf8mb4` |
+| Front end | Server-rendered PHP, Tailwind CSS 4, daisyUI 5 |
+| Editor | Tiptap 3 |
+| Browser bundles | esbuild |
 | Testing | PHPUnit 10 |
 
-## Documentation
+## Architecture in one view
 
-- [Documentation home](docs/README.md)
-- [Platform overview](docs/overview.md)
-- [Features](docs/features.md)
-- [Architecture](docs/architecture.md)
-- [Content model](docs/content-model.md)
-- [Security and operations](docs/security-and-operations.md)
-- [Roadmap](docs/roadmap.md)
+```mermaid
+flowchart LR
+    Visitor[Visitor] --> Public[Public routes]
+    Editor[Editor] --> Admin[Protected admin routes]
+    Scheduler[Scheduler] --> Cron[CLI cron route]
+    Public --> Services[Application services]
+    Admin --> Services
+    Cron --> Services
+    Services --> Models[Models]
+    Models --> DB[(MariaDB)]
+    Services --> Files[Media and runtime files]
+    Brand[Brand and feature config] --> Public
+    Theme[Selected theme] --> Public
+```
 
-## Project status
+Start with the [platform overview](docs/product/overview.md), then read the [architecture guide](docs/architecture/system.md) or follow one of the paths on the [documentation home](docs/README.md).
 
-VerdinCore is under active private development. The documentation describes capabilities present in the current core unless a section is explicitly marked as roadmap.
+## Repository status
 
-Public documentation will grow alongside the platform. The absence of the CMS source from this repository is intentional.
+VerdinCore is actively developed in a private repository. Statements marked as current have been checked against application version `4.0.1`. Planned work is kept in the [roadmap](docs/product/roadmap.md) and is not presented as available functionality.
+
+## License
+
+VerdinCore is proprietary software. Access to code or documentation does not grant permission to use, copy, modify, or distribute the application. See [LICENSE](LICENSE) for the full terms.
 
 ## Feedback
 
-Questions and documentation feedback are welcome through this repository's issue tracker. Security-sensitive information should not be posted publicly.
+Documentation corrections are welcome through this repository's issue tracker. Do not post credentials, private URLs, personal data, exploit details, or infrastructure information in a public issue.
